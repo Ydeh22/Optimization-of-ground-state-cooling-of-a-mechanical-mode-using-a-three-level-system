@@ -411,17 +411,17 @@ def polariton_system(g, pump, T2, gamma, dephasing, incoherent_pump, nth, N):
     Parameters
     ----------
     g: float
-        coupling strength; in GHz
+        coupling strength; in MHz
     pump: float
-        pumping strength; in GHz
+        pumping strength; in MHz
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in MHz
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in MHz
     dephasing: float
-        dephasing rate; in GHz. assumed to be the same for the excited states |1> and |2>
+        dephasing rate; in MHz. assumed to be the same for the excited states |1> and |2>
     incoherent_pump: float
-        incoherent pumpind rate; in GHz. assumed to be the same for the excited states |1> and |2>
+        incoherent pumpind rate; in MHz. assumed to be the same for the excited states |1> and |2>
     nth: float
         average occupation of the mechanical mode
     N: int
@@ -452,17 +452,17 @@ def polariton_simulation(g, pump, T2, gamma, dephasing, incoherent_pump, nth, N)
     Parameters
     ----------
     g: float
-        coupling strength; in GHz
+        coupling strength; in MHz
     pump: float
-        pumping strength; in GHz
+        pumping strength; in MHz
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in MHz
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in MHz
     dephasing: float
-        dephasing rate; in GHz. assumed to be the same for the excited states |1> and |2>
+        dephasing rate; in MHz. assumed to be the same for the excited states |1> and |2>
     incoherent_pump: float
-        incoherent pumpind rate; in GHz. assumed to be the same for the excited states |1> and |2>
+        incoherent pumpind rate; in MHz. assumed to be the same for the excited states |1> and |2>
     nth: float
         average occupation of the mechanical mode
     N: int
@@ -515,3 +515,195 @@ def polariton_theory(g, pump, T2, gamma, nth):
     2*T2**2*(2*g**2 + 9*pump**2 + T2**2)))*nth)))
 
     return numerator/denominator
+
+
+def check_ss(phonon, phonon_ss):
+    '''
+    Checks if the time dynamic simulation is in steady state using the corresponding phonon number array and steady state phonon occupation
+    
+    Parameters
+    -----------
+    phonon: numpy array
+        phonon number array from simulations
+    phonon_ss: float
+        steady state phonon number
+    
+    Returns
+    ----------
+    
+    True: if the in steady state
+    False: otherwise
+    '''
+    
+    # set tolerance for steady state condition
+    tolerance = 10**-2
+    
+    # If average of last 40 values is wihitn tolerance% of the steady state phonon number value
+    if ((np.abs(phonon_ss - np.sum(phonon[-40:])/len(phonon[-40:])))/phonon_ss  < tolerance):
+        return True
+    else:
+        return False
+
+
+
+def stretched_exponential(time, decay_rate, beta, phonon_ss, nth):
+    '''
+    Calculate and return the stretched exponential fit function
+    
+    Parameters
+    ----------
+    time: numpy array
+        array of time values of the simulation
+    decay_rate: float
+        effective decay rate of the phonon number simulation
+    beta: float
+        stretch parameter. 0 < beta < 1 
+    phonon_ss: float
+        steady state phonon number
+    nth: float
+        average occupation of the mechanical mode
+        
+    Returns
+    ----------
+    
+    stretched exponential fit array
+    '''
+    
+    # Fit function as in Eq 8 in manuscript
+    return (nth-phonon_ss)*np.exp(-(decay_rate*time)**beta) + phonon_ss
+
+
+
+def find_index(phonon, phonon_ss):
+    '''
+    Locate the index where phonon(t) becomes <= 99% of the steady state phonon.
+    
+    Parameters
+    ----------
+    phonon: numpy array
+        phonon number array from simulations
+    phonon_ss: float
+        steady state phonon number
+    
+    Returns
+    ----------
+    index: int
+        the required index
+    '''
+    
+    index = 0
+    
+    # Loop and increase the value of index until phonon(t) becomes <= 99%
+    while(phonon[index]*0.99 > phonon_ss):
+        index = index + 1
+        
+    return index
+
+
+def calculate_initial_state(N, nth):
+    '''
+    Calculate the combined inital state of the system: 
+    Ground state for three-level system and thermal state for mechanical resonator mode
+    
+    Parameters
+    -----------
+    N: int
+        size of the fock state basis
+    nth: float
+        average occupation of the mechanical mode
+        
+    Returns
+    ----------
+    initial_state: Qobj
+        initial state for the combined system
+    '''
+    
+    # Initial state for mechanical mode
+    thermal_state = thermal_dm(N, nth)
+    
+    # Initial state for three-level system
+    ground_state = ket2dm(basis(3,1))
+    
+    # Combined initial state: tensor product of the density matrices
+    initial_state = tensor(ground_state, thermal_state)
+    
+    return initial_state
+
+def calculate_phonon_number(state, N):
+    '''
+    Calculate the expectation value of phonon number in the given state
+    
+    Parameters
+    -----------
+    state: Qobj
+        state of the system
+    N: int
+        size of the fock state basis in the system
+        
+    Returns
+    ----------
+    phonon_number: float
+        expectation value of phonon number
+    '''
+    
+    # Define the destruction operator
+    a = destruction_operator(N)
+    
+    phonon_number = expect(a.dag()*a, state)
+    
+    return phonon_number
+
+def master_eq_solver(Hamiltonian, initial_state, time, collapse_ops, N):
+    '''
+    Calculate phonon(t) using the master equation
+    
+    Parameters
+    ----------
+    Hamiltonian: Qobj
+        Hamiltonian of the system
+    initial_state: Qobj
+        initial state for the combined system
+    time: numpy array
+        array of time values of the simulation
+    collapse_ops: dictionaty of Qobj
+        collapse operators for the combined system
+    N: int
+        size of the fock state basis in the system
+        
+    Returns
+    ----------
+    phonon: numpy array
+        phonon(t) array
+    '''
+    
+    # define destruction operator
+    a = destruction_operator(N)
+    
+    # run time dynamics
+    result = mesolve(Hamiltonian, initial_state, time, collapse_ops, [a.dag()*a])
+    phonon = result.expect[0]    # store phonon number time dynamics
+    
+    return phonon
+
+
+def calculate_average_error(best_fit, phonon):
+    '''
+    Calculate average error between best fit and phonon arrays
+    
+    Parameters
+    ----------
+    best_fit: numpy array
+        fit obtained from scipy.minimize
+    phonon: numpy array
+        phonon(t) array
+    
+    Return
+    ----------
+    average_error: float
+        average error between best fit and phonon arrays
+    '''
+    
+    # Diviving by 5000 as both the arrays have 5000 elements
+    average_error = np.sum(np.abs((best_fit - phonon))/phonon)/5000
+    
+    return average_error
