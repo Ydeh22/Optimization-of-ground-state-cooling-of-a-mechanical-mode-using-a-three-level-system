@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phonon_Number module &mdash; Optimization-of-ground-state-cooling-of-a-mechanical-mode-using-a-three-level-system 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="parameters module" href="parameters.html" />
+    <link rel="prev" title="Python_codes" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Optimization-of-ground-state-cooling-of-a-mechanical-mode-using-a-three-level-system
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Python_codes</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Phonon_Number module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters.html">parameters module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Optimization-of-ground-state-cooling-of-a-mechanical-mode-using-a-three-level-system</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Python_codes</a> &raquo;</li>
+      <li>Phonon_Number module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Phonon_Number.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-Phonon_Number">
+<span id="phonon-number-module"></span><h1>Phonon_Number module<a class="headerlink" href="#module-Phonon_Number" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.QD_simulation">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">QD_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dephasing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.QD_simulation" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate steady state phonon number for the QD model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id1"><span class="problematic" id="id2">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>T1: float</strong></dt><dd><p>decay rate for the first excited state: <a href="#id3"><span class="problematic" id="id4">|</span></a>1&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>dephasing: float</strong></dt><dd><p>dephasing rate. assumed to be the same for the excited states <a href="#id5"><span class="problematic" id="id6">|</span></a>1&gt; and <a href="#id7"><span class="problematic" id="id8">|</span></a>2&gt;.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nss: float</dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.QD_system">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">QD_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dephasing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.QD_system" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the Hamiltonian and collapse operators for QD + confined phonon mode system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id9"><span class="problematic" id="id10">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>T1: float</strong></dt><dd><p>decay rate for the first excited state: <a href="#id11"><span class="problematic" id="id12">|</span></a>1&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>dephasing: float</strong></dt><dd><p>dephasing rate. assumed to be the same for the excited states <a href="#id13"><span class="problematic" id="id14">|</span></a>1&gt; and <a href="#id15"><span class="problematic" id="id16">|</span></a>2&gt;.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Hamiltonian: Qobj</dt><dd><p>Hamiltonian of the system.</p>
+</dd>
+<dt>collapse_ops: dictionaty of Qobj</dt><dd><p>collapse operators for the combined system.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.QD_theory">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">QD_theory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.QD_theory" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the nss/nth for QD case as per the theoretical expression derived in the mathematica notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id17"><span class="problematic" id="id18">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>T1: float</strong></dt><dd><p>decay rate for the first excited state: <a href="#id19"><span class="problematic" id="id20">|</span></a>1&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nss: float</dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.calculate_average_error">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">calculate_average_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">best_fit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phonon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.calculate_average_error" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate average error between best fit and phonon arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>best_fit: numpy array</strong></dt><dd><p>fit obtained from scipy.minimize.</p>
+</dd>
+<dt><strong>phonon: numpy array</strong></dt><dd><p>phonon(t) array.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.calculate_initial_state">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">calculate_initial_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.calculate_initial_state" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the combined inital state of the system: 
+Ground state for three-level system and thermal state for mechanical resonator mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>initial_state: Qobj</dt><dd><p>initial state for the combined system.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.calculate_nth">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">calculate_nth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">omega_m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.calculate_nth" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the average occupation of a mode with given frequency and temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>omega_m: float</strong></dt><dd><p>frequency of mode in GHz.</p>
+</dd>
+<dt><strong>temperature: float</strong></dt><dd><p>temperature of mode in K.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nth: float</dt><dd><p>nth = 1/(exp(omega_m/(k_B*temperature)) - 1).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.calculate_phonon_number">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">calculate_phonon_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.calculate_phonon_number" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the expectation value of phonon number in the given state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>state: Qobj</strong></dt><dd><p>state of the system.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis in the system.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>phonon_number: float</dt><dd><p>expectation value of phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.check_ss">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">check_ss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phonon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phonon_ss</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.check_ss" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the time dynamic simulation is in steady state using the corresponding phonon number array and steady state phonon occupation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>phonon: numpy array</strong></dt><dd><p>phonon number array from simulations.</p>
+</dd>
+<dt><strong>phonon_ss: float</strong></dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>True: if the in steady state.</dt><dd></dd>
+<dt>False: otherwise.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.convert_to_GHz">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">convert_to_GHz</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.convert_to_GHz" title="Permalink to this definition"></a></dt>
+<dd><p>Returns conversion factor for meV -&gt; GHz.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.define_three_level_basis">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">define_three_level_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.define_three_level_basis" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the basis states for the three-level system in the combined system of three-level system + mechanical resonator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>sig11, sig22, sig01, sig02, sig12: Qobj</dt><dd><p>three-level system transition operators sig_xy = <a href="#id59"><span class="problematic" id="id60">|x&gt;&lt;y|</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.destruction_operator">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">destruction_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.destruction_operator" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the destruction operator for the mechanical mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>a: Qobj</dt><dd><p>destruction operator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.detuning">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">detuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega_21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.detuning" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate steady state phonon number for a three level system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>delta_1: float</strong></dt><dd><p>omega_1 - omega_p; in GHz.</p>
+</dd>
+<dt><strong>delta_2: float</strong></dt><dd><p>omega_2 - omega_1 - omega_m; in GHz.</p>
+</dd>
+<dt><strong>omega_21: float</strong></dt><dd><p>omega_2 - omega_1; in GHz.</p>
+</dd>
+<dt><strong>temperature: float</strong></dt><dd><p>initial temperature of system; in K.</p>
+</dd>
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id21"><span class="problematic" id="id22">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>T1: float</strong></dt><dd><p>decay rate for the first excited state: <a href="#id23"><span class="problematic" id="id24">|</span></a>1&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nss: float</dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.find_index">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">find_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phonon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phonon_ss</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.find_index" title="Permalink to this definition"></a></dt>
+<dd><p>Locate the index where phonon(t) becomes &lt;= 99% of the steady state phonon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>phonon: numpy array</strong></dt><dd><p>phonon number array from simulations.</p>
+</dd>
+<dt><strong>phonon_ss: float</strong></dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>index: int</dt><dd><p>the required index.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.incoherent_simulation">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">incoherent_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.incoherent_simulation" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate steady state phonon number for the QD model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id25"><span class="problematic" id="id26">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>T1: float</strong></dt><dd><p>decay rate for the first excited state: <a href="#id27"><span class="problematic" id="id28">|</span></a>1&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nss: float</dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.incoherent_system">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">incoherent_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.incoherent_system" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the Hamiltonian and collapse operators for the three-level system that is incoherently pumped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id29"><span class="problematic" id="id30">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>T1: float</strong></dt><dd><p>decay rate for the first excited state: <a href="#id31"><span class="problematic" id="id32">|</span></a>1&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Hamiltonian: Qobj</dt><dd><p>Hamiltonian of the system.</p>
+</dd>
+<dt>collapse_ops: dictionaty of Qobj</dt><dd><p>collapse operators for the combined system.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.master_eq_solver">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">master_eq_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Hamiltonian</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_ops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.master_eq_solver" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate phonon(t) using the master equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Hamiltonian: Qobj</strong></dt><dd><p>Hamiltonian of the system.</p>
+</dd>
+<dt><strong>initial_state: Qobj</strong></dt><dd><p>initial state for the combined system.</p>
+</dd>
+<dt><strong>time: numpy array</strong></dt><dd><p>array of time values of the simulation.</p>
+</dd>
+<dt><strong>collapse_ops: dictionaty of Qobj</strong></dt><dd><p>collapse operators for the combined system.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis in the system.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>phonon: numpy array</dt><dd><p>phonon(t) array.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.polariton_simulation">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">polariton_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dephasing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incoherent_pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.polariton_simulation" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate steady state phonon number for the QD model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in MHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in MHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id33"><span class="problematic" id="id34">|</span></a>2&gt;; in MHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in MHz.</p>
+</dd>
+<dt><strong>dephasing: float</strong></dt><dd><p>dephasing rate; in MHz. assumed to be the same for the excited states <a href="#id35"><span class="problematic" id="id36">|</span></a>1&gt; and <a href="#id37"><span class="problematic" id="id38">|</span></a>2&gt;.</p>
+</dd>
+<dt><strong>incoherent_pump: float</strong></dt><dd><p>incoherent pumpind rate; in MHz. assumed to be the same for the excited states <a href="#id39"><span class="problematic" id="id40">|</span></a>1&gt; and <a href="#id41"><span class="problematic" id="id42">|</span></a>2&gt;.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nss: float</dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.polariton_system">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">polariton_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dephasing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incoherent_pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.polariton_system" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the Hamiltonian and collapse operators for polariton + nanomechanical resonator system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in MHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in MHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id43"><span class="problematic" id="id44">|</span></a>2&gt;; in MHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in MHz.</p>
+</dd>
+<dt><strong>dephasing: float</strong></dt><dd><p>dephasing rate; in MHz. assumed to be the same for the excited states <a href="#id45"><span class="problematic" id="id46">|</span></a>1&gt; and <a href="#id47"><span class="problematic" id="id48">|</span></a>2&gt;.</p>
+</dd>
+<dt><strong>incoherent_pump: float</strong></dt><dd><p>incoherent pumpind rate; in MHz. assumed to be the same for the excited states <a href="#id49"><span class="problematic" id="id50">|</span></a>1&gt; and <a href="#id51"><span class="problematic" id="id52">|</span></a>2&gt;.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Hamiltonian: Qobj</dt><dd><p>Hamiltonian of the system.</p>
+</dd>
+<dt>collapse_ops: dictionaty of Qobj</dt><dd><p>collapse operators for the combined system.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.polariton_theory">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">polariton_theory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.polariton_theory" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the nss/nth for polariton case as per the theoretical expression derived in the mathematica notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id53"><span class="problematic" id="id54">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nss: float</dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.steady_state_phonon">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">steady_state_phonon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Hamiltonian</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_ops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.steady_state_phonon" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the steady state occupation of the mechanical mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Hamiltonian: Qobj</strong></dt><dd><p>Hamiltonian of the system.</p>
+</dd>
+<dt><strong>collapse_ops: dictionaty of Qobj</strong></dt><dd><p>collapse operators for the combined system.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>nss: float</dt><dd><p>steady state phonon number.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.stretched_exponential">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">stretched_exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phonon_ss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.stretched_exponential" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate and return the stretched exponential fit function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>time: numpy array</strong></dt><dd><p>array of time values of the simulation.</p>
+</dd>
+<dt><strong>decay_rate: float</strong></dt><dd><p>effective decay rate of the phonon number simulation.</p>
+</dd>
+<dt><strong>beta: float</strong></dt><dd><p>stretch parameter. 0 &lt; beta &lt; 1 .</p>
+</dd>
+<dt><strong>phonon_ss: float</strong></dt><dd><p>steady state phonon number.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>stretched exponential fit array.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Phonon_Number.three_level_system">
+<span class="sig-prename descclassname"><span class="pre">Phonon_Number.</span></span><span class="sig-name descname"><span class="pre">three_level_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pump</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Phonon_Number.three_level_system" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the Hamiltonian and collapse operators for the three-level system coupled to the mechanical resonator mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>delta_1: float</strong></dt><dd><p>omega_1 - omega_p; in GHz.</p>
+</dd>
+<dt><strong>delta_2: float</strong></dt><dd><p>omega_2 - omega_1 - omega_m; in GHz.</p>
+</dd>
+<dt><strong>g: float</strong></dt><dd><p>coupling strength; in GHz.</p>
+</dd>
+<dt><strong>pump: float</strong></dt><dd><p>pumping strength; in GHz.</p>
+</dd>
+<dt><strong>T2: float</strong></dt><dd><p>decay rate for the second excited state: <a href="#id55"><span class="problematic" id="id56">|</span></a>2&gt;; in GHz.</p>
+</dd>
+<dt><strong>T1: float</strong></dt><dd><p>decay rate for the first excited state: <a href="#id57"><span class="problematic" id="id58">|</span></a>1&gt;; in GHz.</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>decay rate for the mechanical mode; in GHz.</p>
+</dd>
+<dt><strong>nth: float</strong></dt><dd><p>average occupation of the mechanical mode.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>size of the fock state basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Hamiltonian: Qobj</dt><dd><p>Hamiltonian of the system.</p>
+</dd>
+<dt>collapse_ops: dictionaty of Qobj</dt><dd><p>collapse operators for the combined system.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Python_codes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="parameters.html" class="btn btn-neutral float-right" title="parameters module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Neelesh Kumar Vij.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

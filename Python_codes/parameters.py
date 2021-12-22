@@ -67,9 +67,9 @@ def polariton_params():
     
     References: 
     1) AppliedPhysics Letters, vol. 103, no. 24, p. 241112, 2013.
-    2) Opt. Express, vol. 25, no. 20, pp. 24 639-24 649, Oct 2017
-    3) https://iopscience.iop.org/article/10.1088/0268-1242/23/12/123001
-    4) Phys. Rev. Lett., vol. 95, p. 067401, Aug 2005
+    2) Opt. Express, vol. 25, no. 20, pp. 24 639-24 649, Oct 2017.
+    3) https://iopscience.iop.org/article/10.1088/0268-1242/23/12/123001.
+    4) Phys. Rev. Lett., vol. 95, p. 067401, Aug 2005.
     
     Returns
     ----------
