@@ -3,29 +3,27 @@ import numpy as np
 qutip.settings.has_mkl=False
 
 def convert_to_GHz():
-    '''
-    Returns conversion factor for meV -> GHz
-    '''
+    """Returns conversion factor for meV -> GHz.
+    """
     return convert_unit(1, orig='meV', to='GHz') # conversion ratio from meV to GHz
 
 
 
 def calculate_nth(omega_m, temperature):
-    '''
-    Calculates the average occupation of a mode with given frequency and temperature
+    """Calculates the average occupation of a mode with given frequency and temperature.
     
     Parameters
     ----------
     omega_m: float
-        frequency of mode in GHz
+        frequency of mode in GHz.
     temperature: float
-        temperature of mode in K
+        temperature of mode in K.
         
     Returns
     -------
     nth: float
-        nth = 1/(exp(omega_m/(k_B*temperature)) - 1)
-    '''
+        nth = 1/(exp(omega_m/(k_B*temperature)) - 1).
+    """
     
     kb = 20.864950997206705 # Boltzmann constant in GHz/K
     nth = 1/(np.exp(omega_m/(kb*temperature)) - 1)
@@ -34,19 +32,18 @@ def calculate_nth(omega_m, temperature):
     
 
 def define_three_level_basis(N):
-    '''
-    Calculates the basis states for the three-level system in the combined system of three-level system + mechanical resonator
+    r"""Calculates the basis states for the three-level system in the combined system of three-level system + mechanical resonator.
     
     Parameters
     ----------
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     sig11, sig22, sig01, sig02, sig12: Qobj
-        three-level system transition operators sig_xy = |x><y|
-    '''
+        three-level system transition operators sig_xy = |x><y|.
+    """
     
     # basis states
     psi0 = basis(3,0)
@@ -67,19 +64,18 @@ def define_three_level_basis(N):
 
 
 def destruction_operator(N):
-    '''
-    Calculates the destruction operator for the mechanical mode
+    """Calculates the destruction operator for the mechanical mode.
     
     Parameters
     ----------
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     a: Qobj
-        destruction operator
-    '''
+        destruction operator.
+    """
     
     a = tensor(qeye(3), destroy(N))
     return a
@@ -87,23 +83,22 @@ def destruction_operator(N):
 
 
 def steady_state_phonon(Hamiltonian, collapse_ops, N):
-    '''
-    Calculates the steady state occupation of the mechanical mode
+    """Calculates the steady state occupation of the mechanical mode.
     
     Parameters
     ----------
     Hamiltonian: Qobj
-        Hamiltonian of the system
+        Hamiltonian of the system.
     collapse_ops: dictionaty of Qobj
-        collapse operators for the combined system
+        collapse operators for the combined system.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     nss: float
-        steady state phonon number
-    '''
+        steady state phonon number.
+    """
 
     # Calculate the steady state using the Hamiltonian and the collapse operators
     steady_state = steadystate(Hamiltonian, collapse_ops)
@@ -119,37 +114,36 @@ def steady_state_phonon(Hamiltonian, collapse_ops, N):
     
     
 def three_level_system(delta_1, delta_2, g, pump, T2, T1, gamma, nth, N):
-    '''
-    Calculates the Hamiltonian and collapse operators for the three-level system coupled to the mechanical resonator mode
+    """Calculates the Hamiltonian and collapse operators for the three-level system coupled to the mechanical resonator mode.
     
     Parameters
     ----------
     delta_1: float
-        omega_1 - omega_p; in GHz
+        omega_1 - omega_p; in GHz.
     delta_2: float
-        omega_2 - omega_1 - omega_m; in GHz
+        omega_2 - omega_1 - omega_m; in GHz.
     g: float
-        coupling strength; in GHz
+        coupling strength; in GHz.
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     T1: float
-        decay rate for the first excited state: |1>; in GHz
+        decay rate for the first excited state: |1>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     Hamiltonian: Qobj
-        Hamiltonian of the system
+        Hamiltonian of the system.
     collapse_ops: dictionaty of Qobj
-        collapse operators for the combined system
-    '''
+        collapse operators for the combined system.
+    """
     
     sig11, sig22, sig01, sig02, sig12 = define_three_level_basis(N)
     a = destruction_operator(N)
@@ -162,37 +156,36 @@ def three_level_system(delta_1, delta_2, g, pump, T2, T1, gamma, nth, N):
     
 
 def detuning(delta_1, delta_2, omega_21, temperature, g, pump, T2, T1, gamma, N):
-    '''
-    Calculate steady state phonon number for a three level system
+    """Calculate steady state phonon number for a three level system.
     
     Parameters
     ----------
     delta_1: float
-        omega_1 - omega_p; in GHz
+        omega_1 - omega_p; in GHz.
     delta_2: float
-        omega_2 - omega_1 - omega_m; in GHz
+        omega_2 - omega_1 - omega_m; in GHz.
     omega_21: float
-        omega_2 - omega_1; in GHz
+        omega_2 - omega_1; in GHz.
     temperature: float
-        initial temperature of system; in K
+        initial temperature of system; in K.
     g: float
-        coupling strength; in GHz
+        coupling strength; in GHz.
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     T1: float
-        decay rate for the first excited state: |1>; in GHz
+        decay rate for the first excited state: |1>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     nss: float
-        steady state phonon number
-    '''
+        steady state phonon number.
+    """
 
     # nth changes with delta_2
     # omega_21 = omega_2 - omega_1; delta2 = omega_2 - omega_1 - omega_m
@@ -208,29 +201,28 @@ def detuning(delta_1, delta_2, omega_21, temperature, g, pump, T2, T1, gamma, N)
 
 
 def QD_theory(g, pump, T2, T1, gamma, nth): 
-    '''
-    Calculates the nss/nth for QD case as per the theoretical expression derived in the mathematica notebook
+    """Calculates the nss/nth for QD case as per the theoretical expression derived in the mathematica notebook.
     
     Parameters
     ----------
     g: float
-        coupling strength; in GHz
+        coupling strength; in GHz.
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     T1: float
-        decay rate for the first excited state: |1>; in GHz
+        decay rate for the first excited state: |1>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
         
     Returns
     ----------
     nss: float
-        steady state phonon number
-    '''
+        steady state phonon number.
+    """
     
     # numerator already divided by nth
     numerator = (gamma*(2*T2*(g**4 + 4*pump**4 + pump**2*T2**2) + gamma*(4*g**2*(g**2 + 2*pump**2)*(1 + nth) + T2**2*(2*(g**2 + 2*pump**2) + (g**2 + 4*pump**2)*nth))))
@@ -241,35 +233,34 @@ def QD_theory(g, pump, T2, T1, gamma, nth):
 
 
 def QD_system(g, pump, T2, T1, gamma, dephasing, nth, N):
-    '''
-    Calculates the Hamiltonian and collapse operators for QD + confined phonon mode system
+    """Calculates the Hamiltonian and collapse operators for QD + confined phonon mode system.
     
     Parameters
     ----------
     g: float
-        coupling strength; in GHz
+        coupling strength; in GHz.
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     T1: float
-        decay rate for the first excited state: |1>; in GHz
+        decay rate for the first excited state: |1>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     dephasing: float
-        dephasing rate. assumed to be the same for the excited states |1> and |2>
+        dephasing rate. assumed to be the same for the excited states |1> and |2>.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     Hamiltonian: Qobj
-        Hamiltonian of the system
+        Hamiltonian of the system.
     collapse_ops: dictionaty of Qobj
-        collapse operators for the combined system
-    '''
+        collapse operators for the combined system.
+    """
     
     sig11, sig22, sig01, sig02, sig12 = define_three_level_basis(N)
     a = destruction_operator(N)
@@ -282,33 +273,32 @@ def QD_system(g, pump, T2, T1, gamma, dephasing, nth, N):
 
 
 def QD_simulation(g, pump, T2, T1, gamma, dephasing, nth, N):
-    '''
-    Calculate steady state phonon number for the QD model
+    """Calculate steady state phonon number for the QD model.
     
     Parameters
     ----------
     g: float
-        coupling strength; in GHz
+        coupling strength; in GHz.
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     T1: float
-        decay rate for the first excited state: |1>; in GHz
+        decay rate for the first excited state: |1>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     dephasing: float
-        dephasing rate. assumed to be the same for the excited states |1> and |2>
+        dephasing rate. assumed to be the same for the excited states |1> and |2>.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     nss: float
-        steady state phonon number
-    '''
+        steady state phonon number.
+    """
 
     # Define the QD system
     Hamiltonian, collapse_ops = QD_system(g, pump, T2, T1, gamma, dephasing, nth, N)
@@ -330,33 +320,32 @@ def QD_simulation(g, pump, T2, T1, gamma, dephasing, nth, N):
 
 
 def incoherent_system(g, pump, T2, T1, gamma, nth, N):
-    '''
-    Calculates the Hamiltonian and collapse operators for the three-level system that is incoherently pumped
+    """Calculates the Hamiltonian and collapse operators for the three-level system that is incoherently pumped.
     
     Parameters
     ----------
     g: float
         coupling strength; in GHz
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     T1: float
-        decay rate for the first excited state: |1>; in GHz
+        decay rate for the first excited state: |1>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     Hamiltonian: Qobj
-        Hamiltonian of the system
+        Hamiltonian of the system.
     collapse_ops: dictionaty of Qobj
-        collapse operators for the combined system
-    '''
+        collapse operators for the combined system.
+    """
     
     sig11, sig22, sig01, sig02, sig12 = define_three_level_basis(N)
     a = destruction_operator(N)
@@ -369,31 +358,30 @@ def incoherent_system(g, pump, T2, T1, gamma, nth, N):
     
 
 def incoherent_simulation(g, pump, T2, T1, gamma, nth, N):
-    '''
-    Calculate steady state phonon number for the QD model
+    """Calculate steady state phonon number for the QD model.
     
     Parameters
     ----------
     g: float
-        coupling strength; in GHz
+        coupling strength; in GHz.
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     T1: float
-        decay rate for the first excited state: |1>; in GHz
+        decay rate for the first excited state: |1>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     nss: float
-        steady state phonon number
-    '''
+        steady state phonon number.
+    """
     # Define the incoherent system
     Hamiltonian, collapse_ops = incoherent_system(g, pump, T2, T1, gamma, nth, N)
     
@@ -405,35 +393,34 @@ def incoherent_simulation(g, pump, T2, T1, gamma, nth, N):
 
 
 def polariton_system(g, pump, T2, gamma, dephasing, incoherent_pump, nth, N):
-    '''
-    Calculates the Hamiltonian and collapse operators for polariton + nanomechanical resonator system
+    """Calculates the Hamiltonian and collapse operators for polariton + nanomechanical resonator system.
     
     Parameters
     ----------
     g: float
-        coupling strength; in MHz
+        coupling strength; in MHz.
     pump: float
-        pumping strength; in MHz
+        pumping strength; in MHz.
     T2: float
-        decay rate for the second excited state: |2>; in MHz
+        decay rate for the second excited state: |2>; in MHz.
     gamma: float
-        decay rate for the mechanical mode; in MHz
+        decay rate for the mechanical mode; in MHz.
     dephasing: float
-        dephasing rate; in MHz. assumed to be the same for the excited states |1> and |2>
+        dephasing rate; in MHz. assumed to be the same for the excited states |1> and |2>.
     incoherent_pump: float
-        incoherent pumpind rate; in MHz. assumed to be the same for the excited states |1> and |2>
+        incoherent pumpind rate; in MHz. assumed to be the same for the excited states |1> and |2>.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     Hamiltonian: Qobj
-        Hamiltonian of the system
+        Hamiltonian of the system.
     collapse_ops: dictionaty of Qobj
-        collapse operators for the combined system
-    '''
+        collapse operators for the combined system.
+    """
     sig11, sig22, sig01, sig02, sig12 = define_three_level_basis(N)
     a = destruction_operator(N)
     
@@ -446,33 +433,32 @@ def polariton_system(g, pump, T2, gamma, dephasing, incoherent_pump, nth, N):
     
     
 def polariton_simulation(g, pump, T2, gamma, dephasing, incoherent_pump, nth, N):
-    '''
-    Calculate steady state phonon number for the QD model
+    """Calculate steady state phonon number for the QD model.
     
     Parameters
     ----------
     g: float
-        coupling strength; in MHz
+        coupling strength; in MHz.
     pump: float
-        pumping strength; in MHz
+        pumping strength; in MHz.
     T2: float
-        decay rate for the second excited state: |2>; in MHz
+        decay rate for the second excited state: |2>; in MHz.
     gamma: float
-        decay rate for the mechanical mode; in MHz
+        decay rate for the mechanical mode; in MHz.
     dephasing: float
-        dephasing rate; in MHz. assumed to be the same for the excited states |1> and |2>
+        dephasing rate; in MHz. assumed to be the same for the excited states |1> and |2>.
     incoherent_pump: float
-        incoherent pumpind rate; in MHz. assumed to be the same for the excited states |1> and |2>
+        incoherent pumpind rate; in MHz. assumed to be the same for the excited states |1> and |2>.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
     N: int
-        size of the fock state basis
+        size of the fock state basis.
         
     Returns
     ----------
     nss: float
-        steady state phonon number
-    '''
+        steady state phonon number.
+    """
     # Define the incoherent system
     Hamiltonian, collapse_ops = polariton_system(g, pump, T2, gamma, dephasing, incoherent_pump, nth, N)
     
@@ -484,27 +470,26 @@ def polariton_simulation(g, pump, T2, gamma, dephasing, incoherent_pump, nth, N)
 
 
 def polariton_theory(g, pump, T2, gamma, nth): 
-    '''
-    Calculates the nss/nth for polariton case as per the theoretical expression derived in the mathematica notebook
+    """Calculates the nss/nth for polariton case as per the theoretical expression derived in the mathematica notebook.
     
     Parameters
     ----------
     g: float
-        coupling strength; in GHz
+        coupling strength; in GHz.
     pump: float
-        pumping strength; in GHz
+        pumping strength; in GHz.
     T2: float
-        decay rate for the second excited state: |2>; in GHz
+        decay rate for the second excited state: |2>; in GHz.
     gamma: float
-        decay rate for the mechanical mode; in GHz
+        decay rate for the mechanical mode; in GHz.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
         
     Returns
     ----------
     nss: float
-        steady state phonon number
-    '''
+        steady state phonon number.
+    """
     numerator = (gamma*(2*T2*(3*g**4*pump**2 + 16*pump**6 + (g**4 + 2*g**2*pump**2 + 24*pump**4)*T2**2 + \
     (2*g**2 + 9*pump**2)*T2**4 + T2**6) + gamma*(4*g**2*pump**2*(g**2 + 4*pump**2)*(1 + nth) + 3*T2**6*(3 + 5*nth) + \
     2*T2**4*(5*g**2 + 27*pump**2 + (11*g**2 + 42*pump**2)*nth) + T2**2*(g**4 + 30*g**2*pump**2 + 72*pump**4 + \
@@ -518,22 +503,21 @@ def polariton_theory(g, pump, T2, gamma, nth):
 
 
 def check_ss(phonon, phonon_ss):
-    '''
-    Checks if the time dynamic simulation is in steady state using the corresponding phonon number array and steady state phonon occupation
+    """Checks if the time dynamic simulation is in steady state using the corresponding phonon number array and steady state phonon occupation.
     
     Parameters
     -----------
     phonon: numpy array
-        phonon number array from simulations
+        phonon number array from simulations.
     phonon_ss: float
-        steady state phonon number
+        steady state phonon number.
     
     Returns
     ----------
     
-    True: if the in steady state
-    False: otherwise
-    '''
+    True: if the in steady state.
+    False: otherwise.
+    """
     
     # set tolerance for steady state condition
     tolerance = 10**-2
@@ -547,27 +531,26 @@ def check_ss(phonon, phonon_ss):
 
 
 def stretched_exponential(time, decay_rate, beta, phonon_ss, nth):
-    '''
-    Calculate and return the stretched exponential fit function
+    """Calculate and return the stretched exponential fit function.
     
     Parameters
     ----------
     time: numpy array
-        array of time values of the simulation
+        array of time values of the simulation.
     decay_rate: float
-        effective decay rate of the phonon number simulation
+        effective decay rate of the phonon number simulation.
     beta: float
-        stretch parameter. 0 < beta < 1 
+        stretch parameter. 0 < beta < 1 .
     phonon_ss: float
-        steady state phonon number
+        steady state phonon number.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
         
     Returns
     ----------
     
-    stretched exponential fit array
-    '''
+    stretched exponential fit array.
+    """
     
     # Fit function as in Eq 8 in manuscript
     return (nth-phonon_ss)*np.exp(-(decay_rate*time)**beta) + phonon_ss
@@ -575,21 +558,20 @@ def stretched_exponential(time, decay_rate, beta, phonon_ss, nth):
 
 
 def find_index(phonon, phonon_ss):
-    '''
-    Locate the index where phonon(t) becomes <= 99% of the steady state phonon.
+    """Locate the index where phonon(t) becomes <= 99% of the steady state phonon.
     
     Parameters
     ----------
     phonon: numpy array
-        phonon number array from simulations
+        phonon number array from simulations.
     phonon_ss: float
-        steady state phonon number
+        steady state phonon number.
     
     Returns
     ----------
     index: int
-        the required index
-    '''
+        the required index.
+    """
     
     index = 0
     
@@ -601,22 +583,21 @@ def find_index(phonon, phonon_ss):
 
 
 def calculate_initial_state(N, nth):
-    '''
-    Calculate the combined inital state of the system: 
-    Ground state for three-level system and thermal state for mechanical resonator mode
+    """Calculate the combined inital state of the system: 
+    Ground state for three-level system and thermal state for mechanical resonator mode.
     
     Parameters
     -----------
     N: int
-        size of the fock state basis
+        size of the fock state basis.
     nth: float
-        average occupation of the mechanical mode
+        average occupation of the mechanical mode.
         
     Returns
     ----------
     initial_state: Qobj
-        initial state for the combined system
-    '''
+        initial state for the combined system.
+    """
     
     # Initial state for mechanical mode
     thermal_state = thermal_dm(N, nth)
@@ -630,21 +611,20 @@ def calculate_initial_state(N, nth):
     return initial_state
 
 def calculate_phonon_number(state, N):
-    '''
-    Calculate the expectation value of phonon number in the given state
+    """Calculate the expectation value of phonon number in the given state.
     
     Parameters
     -----------
     state: Qobj
-        state of the system
+        state of the system.
     N: int
-        size of the fock state basis in the system
+        size of the fock state basis in the system.
         
     Returns
     ----------
     phonon_number: float
-        expectation value of phonon number
-    '''
+        expectation value of phonon number.
+    """
     
     # Define the destruction operator
     a = destruction_operator(N)
@@ -654,27 +634,26 @@ def calculate_phonon_number(state, N):
     return phonon_number
 
 def master_eq_solver(Hamiltonian, initial_state, time, collapse_ops, N):
-    '''
-    Calculate phonon(t) using the master equation
+    """Calculate phonon(t) using the master equation.
     
     Parameters
     ----------
     Hamiltonian: Qobj
-        Hamiltonian of the system
+        Hamiltonian of the system.
     initial_state: Qobj
-        initial state for the combined system
+        initial state for the combined system.
     time: numpy array
-        array of time values of the simulation
+        array of time values of the simulation.
     collapse_ops: dictionaty of Qobj
-        collapse operators for the combined system
+        collapse operators for the combined system.
     N: int
-        size of the fock state basis in the system
+        size of the fock state basis in the system.
         
     Returns
     ----------
     phonon: numpy array
-        phonon(t) array
-    '''
+        phonon(t) array.
+    """
     
     # define destruction operator
     a = destruction_operator(N)
@@ -687,22 +666,22 @@ def master_eq_solver(Hamiltonian, initial_state, time, collapse_ops, N):
 
 
 def calculate_average_error(best_fit, phonon):
-    '''
-    Calculate average error between best fit and phonon arrays
+    """Calculate average error between best fit and phonon arrays.
     
     Parameters
     ----------
     best_fit: numpy array
-        fit obtained from scipy.minimize
+        fit obtained from scipy.minimize.
     phonon: numpy array
-        phonon(t) array
+        phonon(t) array.
     
     Return
     ----------
     average_error: float
-        average error between best fit and phonon arrays
-    '''
+        average error between best fit and phonon arrays.
+    """
     
+    # Average error formula as per manuscript
     # Diviving by 5000 as both the arrays have 5000 elements
     average_error = np.sum(np.abs((best_fit - phonon))/phonon)/5000
     
